@@ -56,7 +56,9 @@ const SignUp = () => {
               .
             </span>
             <div className="flex items-center gap-5">
-              <button className="btn btn-primary">Create new Account</button>
+              <button className="btn btn-primary btn-wide">
+                Create new Account
+              </button>
               <span>
                 Already have an account?{" "}
                 <Link to="/signin" className="underline">
