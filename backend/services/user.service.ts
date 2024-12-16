@@ -51,15 +51,15 @@ const signInUser = async ({
 
     if (!user) return { authenticated: false, message: "User not found" };
 
-    bcrypt.compare(password, user.password, (error) => {
-      if (error) {
-        return { authenticated: false, message: "Check your password." };
-      }
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
-      const token = generateJwtToken({ userId: user.id });
+    if (!passwordMatch) {
+      return { authenticated: false, message: "Check your password." };
+    }
 
-      return { authenticated: true, message: "User Authenticated", token };
-    });
+    const token = generateJwtToken({ userId: user.id });
+
+    return { authenticated: true, message: "User Authenticated", token };
   } catch (error) {
     console.error("Error loggin user.", error.message);
   }

@@ -1,6 +1,6 @@
 import { api } from "./axios";
 
-// Login User
+// SignUp User
 export const signUpUser = (data: {
   firstName: string;
   lastName: string;
@@ -10,6 +10,26 @@ export const signUpUser = (data: {
   return new Promise((resolve, reject) => {
     api
       .post("/user/signup", data)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+// Login User
+export const signInUser = ({
+  email,
+  password,
+}: {
+  email: string;
+  password: string;
+}) => {
+  return new Promise((resolve, reject) => {
+    api
+      .post("/user/signin", { email, password })
       .then((response) => {
         resolve(response.data);
       })

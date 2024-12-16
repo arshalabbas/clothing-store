@@ -1,10 +1,13 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import TextInput from "../../components/form/TextInput";
 import { useForm } from "react-hook-form";
 import { signInSchema, SignInSchema } from "../../lib/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { signInUser } from "../../lib/api/auth.api";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,9 +20,22 @@ const SignIn = () => {
     resolver: zodResolver(signInSchema),
   });
 
+  const signInMutation = useMutation({
+    mutationFn: signInUser,
+  });
+
   const onSubmit = (values: SignInSchema) => {
     // TODO: Submit form
-    console.log(values);
+    signInMutation.mutate(values, {
+      onSuccess: (data) => {
+        console.log(data);
+        navigate("/", { replace: true });
+      },
+      onError: (error) => {
+        alert("An error occured" + error.response.data.message);
+        console.log("ERROR", error.response.data);
+      },
+    });
   };
   return (
     <div className="flex h-screen min-h-screen w-full">

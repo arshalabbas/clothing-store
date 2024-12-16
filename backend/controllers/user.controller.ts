@@ -7,7 +7,7 @@ const signUpUser = async (req: Request, res: Response) => {
   if (result?.authenticated) {
     res.status(201).json(result);
   } else {
-    res.status(400).json(result);
+    res.status(401).json(result);
   }
 };
 

@@ -42,8 +42,8 @@ const SignUp = () => {
           navigate("/", { replace: true });
         },
         onError: (error) => {
-          console.log(error.response.data);
-          alert("An error occured" + error.respose.data.message);
+          // alert("An error occured" + error.respose.data.message);
+          console.log("ERROR", error.response.data);
         },
       },
     );
