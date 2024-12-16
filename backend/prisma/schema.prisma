@@ -41,6 +41,6 @@ model Image {
 model Category {
   id      String    @id @default(uuid())
   title   String
-  image   String
+  image   String?
   Product Product[]
 }
