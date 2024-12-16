@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { signUpUser } from "../../lib/api/auth.api";
 import { useAuth } from "../../store/useAuthStore";
+import Loading from "../../components/misc/Loading";
 
 const SignUp = () => {
   const setToken = useAuth((state) => state.setToken);
@@ -143,6 +144,7 @@ const SignUp = () => {
           className="h-full w-full object-cover object-center"
         />
       </section>
+      <Loading isLoading={signUpMutation.isPending} />
     </div>
   );
 };
