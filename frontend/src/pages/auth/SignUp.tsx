@@ -1,10 +1,13 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import TextInput from "../../components/form/TextInput";
 import { useForm } from "react-hook-form";
 import { signUpSchema, SignUpSchema } from "../../lib/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { signUpUser } from "../../lib/api/auth.api";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,10 +23,29 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = (values: SignUpSchema) => {
-    // TODO: Submit form
+  const signUpMutation = useMutation({
+    mutationFn: signUpUser,
+  });
 
-    console.log(values);
+  const onSubmit = (values: SignUpSchema) => {
+    signUpMutation.mutate(
+      {
+        email: values.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        password: values.password,
+      },
+      {
+        onSuccess: () => {
+          // TODO: Save login state
+          navigate("/", { replace: true });
+        },
+        onError: (error) => {
+          console.log(error);
+          alert("An error occured");
+        },
+      },
+    );
   };
 
   return (

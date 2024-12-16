@@ -1,4 +1,7 @@
 import express from "express";
+import cors from "cors";
+
+// Routes Impport
 import { userRouter } from "./routes/user.route";
 
 // AdminJS Imports
@@ -15,6 +18,12 @@ AdminJS.registerAdapter({ Database, Resource });
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 
 // Routes
 app.use("/user", userRouter);
