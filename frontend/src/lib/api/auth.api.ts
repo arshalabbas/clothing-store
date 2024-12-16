@@ -1,5 +1,11 @@
 import { api } from "./axios";
 
+interface AuthResponse {
+  authenticated: boolean;
+  message: string;
+  token: string;
+}
+
 // SignUp User
 export const signUpUser = (data: {
   firstName: string;
@@ -7,7 +13,7 @@ export const signUpUser = (data: {
   email: string;
   password: string;
 }) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<AuthResponse>((resolve, reject) => {
     api
       .post("/user/signup", data)
       .then((response) => {
@@ -27,7 +33,7 @@ export const signInUser = ({
   email: string;
   password: string;
 }) => {
-  return new Promise((resolve, reject) => {
+  return new Promise<AuthResponse>((resolve, reject) => {
     api
       .post("/user/signin", { email, password })
       .then((response) => {

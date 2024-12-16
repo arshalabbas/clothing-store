@@ -1,13 +1,14 @@
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import TextInput from "../../components/form/TextInput";
 import { useForm } from "react-hook-form";
 import { signInSchema, SignInSchema } from "../../lib/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { signInUser } from "../../lib/api/auth.api";
+import { useAuth } from "../../store/useAuthStore";
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  const setToken = useAuth((state) => state.setToken);
   const {
     register,
     handleSubmit,
@@ -25,11 +26,9 @@ const SignIn = () => {
   });
 
   const onSubmit = (values: SignInSchema) => {
-    // TODO: Submit form
     signInMutation.mutate(values, {
       onSuccess: (data) => {
-        console.log(data);
-        navigate("/", { replace: true });
+        setToken(data.token);
       },
       onError: (error) => {
         alert("An error occured" + error.response.data.message);
