@@ -1,4 +1,4 @@
-import { useAuth } from "../store/useAuthStore";
+import { useAuth } from "../stores/useAuthStore";
 
 const Home = () => {
   const clearToken = useAuth((state) => state.clearToken);

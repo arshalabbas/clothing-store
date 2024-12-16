@@ -5,10 +5,13 @@ import { signUpSchema, SignUpSchema } from "../../lib/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { signUpUser } from "../../lib/api/auth.api";
-import { useAuth } from "../../store/useAuthStore";
+import { useAuth } from "../../stores/useAuthStore";
 import Loading from "../../components/misc/Loading";
+import AlertMessage from "../../components/ui/AlertMessage";
+import { useState } from "react";
 
 const SignUp = () => {
+  const [rootError, setRootError] = useState("");
   const setToken = useAuth((state) => state.setToken);
   const {
     register,
@@ -30,6 +33,7 @@ const SignUp = () => {
   });
 
   const onSubmit = (values: SignUpSchema) => {
+    setRootError("");
     signUpMutation.mutate(
       {
         email: values.email,
@@ -42,8 +46,7 @@ const SignUp = () => {
           setToken(data.token);
         },
         onError: (error) => {
-          // alert("An error occured" + error.respose.data.message);
-          console.log("ERROR", error.response.data);
+          setRootError(error.message);
         },
       },
     );
@@ -59,6 +62,8 @@ const SignUp = () => {
               Welcome to <span className="text-primary">Haute</span>
             </p>
           </div>
+          {rootError && <AlertMessage message={rootError} />}
+
           <form
             className="flex flex-col gap-3"
             onSubmit={handleSubmit(onSubmit)}

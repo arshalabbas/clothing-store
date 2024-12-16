@@ -20,7 +20,7 @@ export const signUpUser = (data: {
         resolve(response.data);
       })
       .catch((error) => {
-        reject(error);
+        reject(error.response.data);
       });
   });
 };
@@ -40,7 +40,7 @@ export const signInUser = ({
         resolve(response.data);
       })
       .catch((error) => {
-        reject(error);
+        reject(error.response.data);
       });
   });
 };

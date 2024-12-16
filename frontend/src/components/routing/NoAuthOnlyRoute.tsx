@@ -1,4 +1,4 @@
-import { useAuth } from "../../store/useAuthStore";
+import { useAuth } from "../../stores/useAuthStore";
 import { Navigate, Outlet } from "react-router";
 
 const NoAuthOnlyRoute = () => {

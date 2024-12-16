@@ -17,7 +17,10 @@ const createUser = async (data: User) => {
     const user = await prisma.user.findFirst({ where: { email: data.email } });
 
     if (user) {
-      return { authenticated: false, message: "User already exists." };
+      return {
+        authenticated: false,
+        message: `User with the email id =_${userData.email}_= already exists. Try =*Signing in*=.`,
+      };
     }
 
     userData.password = await bcrypt.hash(
@@ -49,12 +52,19 @@ const signInUser = async ({
       where: { email },
     });
 
-    if (!user) return { authenticated: false, message: "User not found" };
+    if (!user)
+      return {
+        authenticated: false,
+        message: `No account found for =_${email}_=, Create an account now.`,
+      };
 
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return { authenticated: false, message: "Check your password." };
+      return {
+        authenticated: false,
+        message: "Incorrect password. Try again.",
+      };
     }
 
     const token = generateJwtToken({ userId: user.id });

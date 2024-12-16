@@ -5,10 +5,13 @@ import { signInSchema, SignInSchema } from "../../lib/schemas/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { signInUser } from "../../lib/api/auth.api";
-import { useAuth } from "../../store/useAuthStore";
+import { useAuth } from "../../stores/useAuthStore";
 import Loading from "../../components/misc/Loading";
+import { useState } from "react";
+import AlertMessage from "../../components/ui/AlertMessage";
 
 const SignIn = () => {
+  const [rootError, setRootError] = useState("");
   const setToken = useAuth((state) => state.setToken);
   const {
     register,
@@ -27,13 +30,13 @@ const SignIn = () => {
   });
 
   const onSubmit = (values: SignInSchema) => {
+    setRootError("");
     signInMutation.mutate(values, {
       onSuccess: (data) => {
         setToken(data.token);
       },
       onError: (error) => {
-        alert("An error occured" + error.response.data.message);
-        console.log("ERROR", error.response.data);
+        setRootError(error.message);
       },
     });
   };
@@ -47,6 +50,7 @@ const SignIn = () => {
               Login to <span className="text-primary">Haute</span>
             </p>
           </div>
+          {rootError && <AlertMessage message={rootError} />}
           <form
             className="flex flex-col gap-3"
             onSubmit={handleSubmit(onSubmit)}
