@@ -42,6 +42,18 @@ const adminJsOptions: AdminJSOptions = {
       resource: { model: getModelByName("User"), client: prisma },
       options: {},
     },
+    {
+      resource: { model: getModelByName("Product"), client: prisma },
+      options: {},
+    },
+    {
+      resource: { model: getModelByName("Category"), client: prisma },
+      options: {},
+    },
+    {
+      resource: { model: getModelByName("Image"), client: prisma },
+      options: {},
+    },
   ],
 };
 
