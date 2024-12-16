@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 
 // Routes Impport
 import { userRouter } from "./routes/user.route";
@@ -10,6 +11,8 @@ import AdminJSExpress from "@adminjs/express";
 import { Database, Resource, getModelByName } from "@adminjs/prisma";
 
 import prisma from "./config/prismaClient";
+
+dotenv.config();
 
 const PORT = 3000;
 

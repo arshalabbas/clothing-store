@@ -36,13 +36,14 @@ const SignUp = () => {
         password: values.password,
       },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           // TODO: Save login state
+          console.log(data);
           navigate("/", { replace: true });
         },
         onError: (error) => {
-          console.log(error);
-          alert("An error occured");
+          console.log(error.response.data);
+          alert("An error occured" + error.respose.data.message);
         },
       },
     );
