@@ -9,7 +9,13 @@ const categoryResource = {
   resource: { model: getModelByName("Category"), client: prisma },
   options: {
     properties: {
-      image: { isVisible: false },
+      image: {
+        isVisible: { list: true, show: true, edit: false, filter: false },
+        components: {
+          list: "ImageList",
+          show: "ImageList",
+        },
+      },
     },
   },
   features: [

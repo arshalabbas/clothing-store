@@ -6,6 +6,9 @@ const getProducts = async () => {
       include: {
         category: true,
         Image: {
+          orderBy: {
+            order: "asc",
+          },
           select: {
             image: true,
           },
@@ -48,6 +51,9 @@ const getProductById = async (id: string) => {
         Image: {
           select: {
             image: true,
+          },
+          orderBy: {
+            order: "asc",
           },
         },
       },
