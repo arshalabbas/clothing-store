@@ -1,8 +1,16 @@
+import { useQuery } from "@tanstack/react-query";
+import ProductGrid from "../../components/layouts/ProductGrid";
 import Navbar from "../../components/shared/Navbar";
 import FeaturedCategories from "./FeaturedCategories";
 import Hero from "./Hero";
+import { getAllProducts } from "../../lib/api/product.api";
+import Loading from "../../components/misc/Loading";
 
 const Home = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["products"],
+    queryFn: getAllProducts,
+  });
   return (
     <main className="pt-14">
       <Navbar />
@@ -21,6 +29,11 @@ const Home = () => {
         </div>
       </div>
       {/* Little MOTTO Ends */}
+      <section className="dynamic-container">
+        <ProductGrid data={data || []} />
+      </section>
+
+      <Loading isLoading={isLoading} />
     </main>
   );
 };

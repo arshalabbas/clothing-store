@@ -9,6 +9,7 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 // Routes Impport
 import { userRouter } from "./routes/user.route";
 import { categoryRouter } from "./routes/category.route";
+import { productRouter } from "./routes/product.route";
 
 // AdminJS Imports
 import AdminJS from "adminjs";
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // Routes
 app.use("/user", userRouter);
 app.use("/category", categoryRouter);
+app.use("/products", productRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running!");

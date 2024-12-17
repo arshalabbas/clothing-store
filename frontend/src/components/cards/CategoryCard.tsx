@@ -1,4 +1,4 @@
-import { imgageURL } from "../../lib/utils";
+import { imageURL } from "../../lib/utils";
 import { Category } from "../../types";
 
 const CategoryCard = ({ title, image }: Category) => {
@@ -6,7 +6,7 @@ const CategoryCard = ({ title, image }: Category) => {
     <div className="h-auto w-full">
       <div className="h-80 w-full overflow-hidden">
         <img
-          src={imgageURL(image)}
+          src={imageURL(image)}
           alt={title}
           className="h-full w-full object-cover object-center"
         />
