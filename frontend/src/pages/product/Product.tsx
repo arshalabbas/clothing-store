@@ -5,6 +5,8 @@ import Loading from "../../components/misc/Loading";
 import { useEffect } from "react";
 import ProductImages from "./ProductImages";
 import Sizes from "./Sizes";
+import PriceCard from "./PriceCard";
+import ProductRating from "./ProductRating";
 
 const Product = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,7 +22,7 @@ const Product = () => {
   }, []);
 
   return (
-    <main className="dynamic-container min-h-screen pt-20">
+    <main className="dynamic-container min-h-screen pt-24">
       <section className="flex w-full gap-10">
         {/* Images */}
         <ProductImages images={data?.images || []} />
@@ -32,12 +34,18 @@ const Product = () => {
             </h5>
             <h2 className="text-2xl font-bold">{data?.title}</h2>
           </div>
-          <div>
-            <p className="mt-10 leading-[1.6] text-primary/80">
-              {data?.description}
-            </p>
+
+          <div className="mt-10">
+            <p className="leading-[1.6] text-primary/80">{data?.description}</p>
           </div>
           <Sizes sizes={data?.category.sizes || []} id={id || ""} />
+          <PriceCard
+            price={data?.price || ""}
+            originalPrice={data?.price || ""}
+          />
+
+          {/* Price */}
+          <ProductRating rating={4.5} count={43} id={id || ""} />
         </div>
       </section>
       <Loading isLoading={isLoading} />
