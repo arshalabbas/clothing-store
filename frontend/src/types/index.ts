@@ -11,4 +11,6 @@ export interface ProductFever {
   images: string[];
   price: string;
   originalPrice: string;
+  rating: number;
+  category: string;
 }

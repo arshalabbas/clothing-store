@@ -5,6 +5,7 @@ import FeaturedCategories from "./FeaturedCategories";
 import Hero from "./Hero";
 import { getAllProducts } from "../../lib/api/product.api";
 import Loading from "../../components/misc/Loading";
+import Footer from "../../components/shared/Footer";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -16,7 +17,6 @@ const Home = () => {
       <Navbar />
       <Hero />
       <FeaturedCategories />
-
       {/* Little MOTTO */}
       <div className="relative my-10 flex w-full justify-center">
         <h1 className="text-center text-6xl font-black">
@@ -32,7 +32,7 @@ const Home = () => {
       <section className="dynamic-container">
         <ProductGrid data={data || []} />
       </section>
-
+      <Footer />
       <Loading isLoading={isLoading} />
     </main>
   );
