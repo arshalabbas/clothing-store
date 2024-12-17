@@ -14,11 +14,12 @@ datasource db {
 }
 
 model User {
-  id        String @id @default(uuid())
-  email     String @unique
+  id        String   @id @default(uuid())
+  email     String   @unique
   firstName String
   lastName  String
   password  String
+  reviews   Review[]
 }
 
 model Product {
@@ -30,6 +31,7 @@ model Product {
   categoryId    String
   category      Category @relation(fields: [categoryId], references: [id])
   Image         Image[]
+  Review        Review[]
 }
 
 model Image {
@@ -44,5 +46,18 @@ model Category {
   title    String
   featured Boolean   @default(false)
   image    String?
-  Product  Product[]
+  products Product[]
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  rating    Int
+  review    String
+  createdAt DateTime @default(now())
+
+  @@unique([productId, userId])
 }

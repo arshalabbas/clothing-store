@@ -24,6 +24,26 @@ const adminJsOptions: AdminJSOptions = {
         },
       },
     },
+    {
+      resource: { model: getModelByName("Review"), client: prisma },
+      options: {
+        properties: {
+          review: {
+            type: "textarea",
+            props: {
+              rows: 3,
+            },
+          },
+          rating: {
+            props: {
+              type: "number",
+              min: 1,
+              max: 5,
+            },
+          },
+        },
+      },
+    },
     imageResource,
     categoryResource,
   ],
