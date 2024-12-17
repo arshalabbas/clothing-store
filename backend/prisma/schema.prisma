@@ -42,11 +42,12 @@ model Image {
 }
 
 model Category {
-  id       String    @id @default(uuid())
+  id       String         @id @default(uuid())
   title    String
-  featured Boolean   @default(false)
+  featured Boolean        @default(false)
   image    String?
   products Product[]
+  sizes    SizeCategory[]
 }
 
 model Review {
@@ -60,4 +61,12 @@ model Review {
   createdAt DateTime @default(now())
 
   @@unique([productId, userId])
+}
+
+model SizeCategory {
+  id         String   @id @default(uuid())
+  title      String
+  order      Int
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
 }

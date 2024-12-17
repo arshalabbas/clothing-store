@@ -1,8 +1,15 @@
+export interface Size {
+  id: string;
+  title: string;
+  order: string;
+}
+
 export interface Category {
   id: string;
   title: string;
   featured: boolean;
   image: string;
+  sizes: Size[];
 }
 
 export interface ProductFever {

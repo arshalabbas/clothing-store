@@ -38,7 +38,13 @@ const getProductById = async (id: string) => {
     const product = await prisma.product.findFirst({
       where: { id },
       include: {
-        category: true,
+        category: {
+          include: {
+            sizes: {
+              orderBy: { order: "asc" },
+            },
+          },
+        },
         Image: {
           select: {
             image: true,

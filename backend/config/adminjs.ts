@@ -44,6 +44,7 @@ const adminJsOptions: AdminJSOptions = {
         },
       },
     },
+    { resource: { model: getModelByName("SizeCategory"), client: prisma } },
     imageResource,
     categoryResource,
   ],

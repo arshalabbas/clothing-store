@@ -2,12 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getProductById } from "../../lib/api/product.api";
 import Loading from "../../components/misc/Loading";
-import { useEffect, useState } from "react";
-import { imageURL } from "../../lib/utils";
-import clsx from "clsx";
+import { useEffect } from "react";
+import ProductImages from "./ProductImages";
+import Sizes from "./Sizes";
 
 const Product = () => {
-  const [imageIndex, setImageIndex] = useState(0);
   const { id } = useParams<{ id: string }>();
 
   const { data, isLoading } = useQuery({
@@ -24,35 +23,9 @@ const Product = () => {
     <main className="dynamic-container min-h-screen pt-20">
       <section className="flex w-full gap-10">
         {/* Images */}
-        <div className="flex h-[500px] gap-5">
-          <div className="h-full w-32 overflow-y-auto">
-            {data?.images.map((image, index) => (
-              <div
-                className={clsx(
-                  "mt-3 aspect-square w-full cursor-pointer overflow-hidden rounded bg-base-200 transition first:mt-0 hover:opacity-100",
-                  {
-                    "opacity-60": index !== imageIndex,
-                  },
-                )}
-                key={index}
-                onClick={() => setImageIndex(index)}
-              >
-                <img
-                  src={imageURL(image)}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-          <div className="overflow-hidden rounded bg-base-200">
-            <img
-              src={imageURL(data?.images[imageIndex] || "")}
-              className="aspect-auto h-full w-full"
-            />
-          </div>
-        </div>
+        <ProductImages images={data?.images || []} />
         {/* Detailed */}
-        <div className="h-full flex-1">
+        <div className="h-full flex-1 flex-col">
           <div>
             <h5 className="text-lg font-medium text-primary/70">
               {data?.category.title}
@@ -64,6 +37,7 @@ const Product = () => {
               {data?.description}
             </p>
           </div>
+          <Sizes sizes={data?.category.sizes || []} id={id || ""} />
         </div>
       </section>
       <Loading isLoading={isLoading} />
