@@ -19,11 +19,8 @@ const FeaturedCategories = () => {
         {data?.map((item) => <CategoryCard {...item} />)}
       </div>
       <div className="flex justify-end">
-        <Link
-          to={"/categories"}
-          className="flex items-center leading-none text-primary"
-        >
-          View all category
+        <Link to={"/categories"} className="flex items-center text-primary">
+          <span className="leading-3">View all category</span>
           <IoIosArrowRoundForward className="fill-primary text-2xl" />
         </Link>
       </div>

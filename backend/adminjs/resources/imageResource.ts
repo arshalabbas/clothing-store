@@ -1,0 +1,39 @@
+import { getModelByName } from "@adminjs/prisma";
+import uploadFileFeature from "@adminjs/upload";
+import prisma from "../../config/prismaClient";
+import path from "path";
+import componentLoader from "../../config/component-loader";
+import { rootDir } from "../../lib/utils";
+
+const imageResource = {
+  resource: { model: getModelByName("Image"), client: prisma },
+  options: {
+    properties: {
+      image: { isVisible: false },
+    },
+  },
+  features: [
+    uploadFileFeature({
+      provider: {
+        local: {
+          bucket: path.join(rootDir, "public", "uploads"),
+          opts: { baseUrl: "/uploads" },
+        },
+      },
+      uploadPath: (record) => {
+        return `product-images/${record.id()}.jpg`;
+      },
+      properties: {
+        key: "image",
+        file: "uploadFile",
+      },
+      validation: {
+        mimeTypes: ["image/jpg", "image/jpeg", "image/png"],
+        maxSize: 10 * 1024 * 1024,
+      },
+      componentLoader,
+    }),
+  ],
+};
+
+export default imageResource;

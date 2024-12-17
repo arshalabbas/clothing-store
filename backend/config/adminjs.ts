@@ -3,6 +3,7 @@ import { AdminJSOptions } from "adminjs";
 import prisma from "./prismaClient";
 import componentLoader from "./component-loader";
 import categoryResource from "../adminjs/resources/categoryResource";
+import imageResource from "../adminjs/resources/imageResource";
 
 const adminJsOptions: AdminJSOptions = {
   resources: [
@@ -12,12 +13,18 @@ const adminJsOptions: AdminJSOptions = {
     },
     {
       resource: { model: getModelByName("Product"), client: prisma },
-      options: {},
+      options: {
+        properties: {
+          description: {
+            type: "textarea",
+            props: {
+              rows: 6,
+            },
+          },
+        },
+      },
     },
-    {
-      resource: { model: getModelByName("Image"), client: prisma },
-      options: {},
-    },
+    imageResource,
     categoryResource,
   ],
   componentLoader,
