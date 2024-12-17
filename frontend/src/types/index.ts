@@ -14,3 +14,8 @@ export interface ProductFever {
   rating: number;
   category: string;
 }
+
+export interface Product extends Omit<ProductFever, "category"> {
+  category: Category;
+  description: string;
+}

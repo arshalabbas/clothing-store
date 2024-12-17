@@ -1,11 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import ProductGrid from "../../components/layouts/ProductGrid";
-import Navbar from "../../components/shared/Navbar";
 import FeaturedCategories from "./FeaturedCategories";
 import Hero from "./Hero";
 import { getAllProducts } from "../../lib/api/product.api";
 import Loading from "../../components/misc/Loading";
-import Footer from "../../components/shared/Footer";
 
 const Home = () => {
   const { data, isLoading } = useQuery({
@@ -14,7 +12,6 @@ const Home = () => {
   });
   return (
     <main className="pt-14">
-      <Navbar />
       <Hero />
       <FeaturedCategories />
       {/* Little MOTTO */}
@@ -32,7 +29,6 @@ const Home = () => {
       <section className="dynamic-container">
         <ProductGrid data={data || []} />
       </section>
-      <Footer />
       <Loading isLoading={isLoading} />
     </main>
   );

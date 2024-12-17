@@ -33,4 +33,33 @@ const getProducts = async () => {
   }
 };
 
-export const productService = { getProducts };
+const getProductById = async (id: string) => {
+  try {
+    const product = await prisma.product.findFirst({
+      where: { id },
+      include: {
+        category: true,
+        Image: {
+          select: {
+            image: true,
+          },
+        },
+      },
+    });
+
+    const prettifiedProduct = {
+      ...product,
+      images: product?.Image.map((item) => item.image),
+    };
+
+    delete prettifiedProduct.Image;
+    delete prettifiedProduct.categoryId;
+
+    return prettifiedProduct;
+  } catch (error) {
+    console.error("Error fetching product by ID:", error.message);
+    throw error;
+  }
+};
+
+export const productService = { getProducts, getProductById };

@@ -7,4 +7,10 @@ const getProducts = async (req: Request, res: Response) => {
   res.status(200).json(products);
 };
 
-export const productController = { getProducts };
+const getProductById = async (req: Request, res: Response) => {
+  const product = await productService.getProductById(req.params.id);
+
+  res.status(200).json(product);
+};
+
+export const productController = { getProducts, getProductById };
