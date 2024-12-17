@@ -7,3 +7,27 @@
 body {
   font-family: "Noto Sans", "san-serif";
 }
+
+@layer utilities {
+  .dynamic-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  @media (min-width: 768px) {
+    .dynamic-container {
+      width: 750px;
+    }
+  }
+  @media (min-width: 992px) {
+    .dynamic-container {
+      width: 970px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .dynamic-container {
+      width: 1170px;
+    }
+  }
+}

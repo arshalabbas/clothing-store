@@ -28,3 +28,5 @@ dist-ssr
 
 # Backend
 .adminjs
+migrations/
+backend/public/uploads/*
