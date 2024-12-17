@@ -17,15 +17,19 @@ const categoryResource = {
       provider: {
         local: {
           bucket: path.join(rootDir, "public", "uploads"),
-          opts: { baseUrl: "./public/uploads" },
+          opts: { baseUrl: "/uploads" },
         },
       },
-      uploadPath: (record, filename) => {
+      uploadPath: (record) => {
         return `category-images/${record.id()}.jpg`;
       },
       properties: {
         key: "image",
         file: "uploadFile",
+      },
+      validation: {
+        mimeTypes: ["image/jpg", "image/jpeg", "image/png"],
+        maxSize: 10 * 1024 * 1024,
       },
       componentLoader,
     }),

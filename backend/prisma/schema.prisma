@@ -39,8 +39,9 @@ model Image {
 }
 
 model Category {
-  id      String    @id @default(uuid())
-  title   String
-  image   String?
-  Product Product[]
+  id       String    @id @default(uuid())
+  title    String
+  featured Boolean   @default(false)
+  image    String?
+  Product  Product[]
 }
