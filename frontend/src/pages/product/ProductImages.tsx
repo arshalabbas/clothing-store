@@ -6,7 +6,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
-    <div className="flex h-[500px] gap-5">
+    <div className="flex h-[500px] gap-5" id="product-left">
       <div className="scrollbar-none h-full w-32 overflow-y-auto">
         {images.map((image, index) => (
           <div
