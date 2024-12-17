@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import * as url from "url";
 import path from "path";
-import uploalFeature from "@adminjs/upload";
+import * as url from "url";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -11,20 +10,17 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 import { userRouter } from "./routes/user.route";
 
 // AdminJS Imports
-import AdminJS, { AdminJSOptions, ComponentLoader } from "adminjs";
+import AdminJS from "adminjs";
 import AdminJSExpress from "@adminjs/express";
-import { Database, Resource, getModelByName } from "@adminjs/prisma";
+import { Database, Resource } from "@adminjs/prisma";
 
-import prisma from "./config/prismaClient";
+import adminJsOptions from "./config/adminjs";
 
 dotenv.config();
 
 const PORT = 3000;
 
 AdminJS.registerAdapter({ Database, Resource });
-
-// component loaders
-const componentLoader = new ComponentLoader();
 
 const app = express();
 
@@ -36,6 +32,7 @@ app.use(
   })
 );
 
+// static files configuration
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
@@ -46,54 +43,8 @@ app.get("/", (req, res) => {
 });
 
 // AdminJS Configurations
-const adminJsOptions: AdminJSOptions = {
-  resources: [
-    {
-      resource: { model: getModelByName("User"), client: prisma },
-      options: {},
-    },
-    {
-      resource: { model: getModelByName("Product"), client: prisma },
-      options: {},
-    },
-    {
-      resource: { model: getModelByName("Category"), client: prisma },
-      options: {
-        properties: {
-          image: { isVisible: false },
-        },
-      },
-      features: [
-        uploalFeature({
-          provider: {
-            local: {
-              bucket: path.join(__dirname, "public", "uploads"),
-              opts: { baseUrl: "./public/uploads" },
-            },
-          },
-          uploadPath: (record, filename) => {
-            return `category-images/${record.id()}.jpg`;
-          },
-          properties: {
-            key: "image",
-            file: "uploadFile",
-          },
-          componentLoader,
-        }),
-      ],
-    },
-    {
-      resource: { model: getModelByName("Image"), client: prisma },
-      options: {},
-    },
-  ],
-  componentLoader,
-};
-
 const admin = new AdminJS(adminJsOptions);
-
 const adminRouter = AdminJSExpress.buildRouter(admin);
-
 app.use(admin.options.rootPath, adminRouter);
 
 app.listen(PORT, () => {
