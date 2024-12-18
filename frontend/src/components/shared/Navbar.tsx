@@ -34,7 +34,9 @@ const Navbar = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl text-primary-content">Hauts</a>
+        <a className="btn btn-ghost text-xl text-primary-content" href="/">
+          Hauts
+        </a>
       </div>
       <div className="navbar-end">
         <button className="btn btn-circle btn-ghost">

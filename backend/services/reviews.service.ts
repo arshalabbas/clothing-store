@@ -65,9 +65,25 @@ const deleteUserReview = async (userId: string, productId: string) => {
   return { done: true, review };
 };
 
+const getAllReviews = async (productId: string, userId: string) => {
+  try {
+    const reviews = await prisma.review.findMany({
+      where: { productId, userId: { not: userId } },
+      include: { user: { select: { firstName: true, lastName: true } } },
+      orderBy: { createdAt: "asc" },
+    });
+
+    return { done: true, reviews };
+  } catch (error: any) {
+    console.error("Error fetching all reviews:", error.message);
+    throw error;
+  }
+};
+
 export const reviewsService = {
   newReview,
   getUserReview,
   updateUserReview,
   deleteUserReview,
+  getAllReviews,
 };

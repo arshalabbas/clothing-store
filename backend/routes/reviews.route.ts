@@ -4,8 +4,9 @@ import { reviewsController } from "../controllers/reviews.controller";
 const router = Router();
 
 router
-  .post("/:productId/new", reviewsController.newReview)
+  .get("/:productId", reviewsController.getAllReviews)
   .get("/:productId/user-review", reviewsController.getUserReview)
+  .post("/:productId/new", reviewsController.newReview)
   .put("/:productId/user-review", reviewsController.updateUserReview)
   .delete("/:productId/user-review", reviewsController.deleteUserReview);
 

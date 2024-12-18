@@ -81,7 +81,7 @@ const Product = () => {
         <Reviews
           reviewCount={data?.reviewCount}
           rating={data?.averageRating || 0}
-          id={"-2" + id}
+          productId={id || ""}
           UserReview={
             <UserReview
               hasReviewed={data?.hasReviewed}

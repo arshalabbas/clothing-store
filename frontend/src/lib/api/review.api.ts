@@ -1,4 +1,4 @@
-import { Review } from "../../types";
+import { Review, ReviewExtended } from "../../types";
 import { api } from "./axios";
 
 interface ReviewParams {
@@ -69,6 +69,19 @@ export const deleteReview = (productId: string) => {
   return new Promise((resolve, reject) => {
     api
       .delete(`/reviews/${productId}/user-review`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+  });
+};
+
+export const getAllReviews = (productId: string) => {
+  return new Promise<ReviewExtended[]>((resolve, reject) => {
+    api
+      .get(`/reviews/${productId}`)
       .then((response) => {
         resolve(response.data);
       })

@@ -17,7 +17,7 @@ const Rating = ({
 }: Props) => {
   return (
     <div
-      className={clsx("rating rating-hidden", {
+      className={clsx("rating rating-hidden -ml-2", {
         "rating-xs": size === "xs",
         "rating-sm": size === "sm",
         "rating-md": size === "md",
@@ -35,7 +35,6 @@ const Rating = ({
             disabled={disabled}
             onChange={() => onChange && onChange(index)}
             checked={Math.trunc(rating) === index}
-            defaultChecked={Math.trunc(rating) === index}
           />
         ))}
     </div>

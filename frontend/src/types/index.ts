@@ -29,6 +29,11 @@ export interface Review {
   review: string;
 }
 
+export interface ReviewExtended extends Review {
+  createdAt: Date;
+  user: { firstName: string; lastName: string };
+}
+
 export interface Product extends Omit<ProductFever, "category"> {
   category: Category;
   description: string;

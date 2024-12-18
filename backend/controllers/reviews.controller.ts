@@ -84,9 +84,24 @@ const deleteUserReview = async (req: Request, res: Response) => {
   res.status(200).json(result);
 };
 
+const getAllReviews = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const productId = req.params.productId;
+
+  if (!userId || !productId)
+    return res
+      .status(400)
+      .json({ done: false, message: "User ID or Product ID is missing." });
+
+  const result = await reviewsService.getAllReviews(productId, userId);
+
+  res.status(200).json(result.reviews);
+};
+
 export const reviewsController = {
   newReview,
   getUserReview,
   updateUserReview,
   deleteUserReview,
+  getAllReviews,
 };
