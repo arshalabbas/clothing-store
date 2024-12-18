@@ -20,6 +20,7 @@ export interface ProductFever {
   originalPrice: string;
   rating: number;
   category: string;
+  averageRating: number | null;
 }
 
 export interface Review {
@@ -33,4 +34,8 @@ export interface Product extends Omit<ProductFever, "category"> {
   description: string;
   hasReviewed: boolean;
   userReview: Review | null;
+  reviewCount: {
+    total: number;
+    [key: number]: number;
+  };
 }

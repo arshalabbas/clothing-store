@@ -1,16 +1,20 @@
 import { ReactNode } from "react";
 import Rating from "../../components/ui/Rating";
+import { Product } from "../../types";
 
 interface Props {
   id: string;
   rating: number;
   UserReview: ReactNode;
+  reviewCount: Product["reviewCount"];
 }
 
-const Reviews = ({ rating, id, UserReview }: Props) => {
+const Reviews = ({ rating, id, UserReview, reviewCount }: Props) => {
   return (
     <div className="min-h-screen">
-      <h3 className="text-2xl font-bold text-primary">Reviews (40)</h3>
+      <h3 className="text-2xl font-bold text-primary">
+        Reviews (${reviewCount.total})
+      </h3>
       <div className="mt-5 flex gap-5">
         {/* Reviews Details */}
         <div className="bg-base-200 p-5">
@@ -24,7 +28,7 @@ const Reviews = ({ rating, id, UserReview }: Props) => {
             .map((_, i) => (
               <div key={i} className="flex items-center justify-between py-2">
                 <Rating rating={i + 1} id={`-${i}-sm-${id}`} />
-                {"xx"} Reviews
+                {reviewCount[i + 1]} Reviews
               </div>
             ))
             .reverse()}

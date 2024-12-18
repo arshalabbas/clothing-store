@@ -13,10 +13,18 @@ const getProducts = async () => {
             image: true,
           },
         },
+        Review: {
+          select: {
+            rating: true,
+          },
+        },
       },
     });
 
     const prettifiedProducts = products.map((product) => {
+      console.log(
+        product.Review.reduce((prev, current) => prev + current.rating, 0)
+      );
       const newProduct = {
         id: product.id,
         title: product.title,
@@ -24,8 +32,10 @@ const getProducts = async () => {
         category: product.category.title,
         price: product.price,
         originalPrice: product.originalPrice,
+        averageRating:
+          product.Review.reduce((prev, current) => prev + current.rating, 0) /
+          product.Review.length,
       };
-
       return newProduct;
     });
 
@@ -56,19 +66,30 @@ const getProductById = async (id: string, userId: string) => {
             order: "asc",
           },
         },
-        Review: {
-          where: {
-            userId,
-          },
-        },
+        Review: true,
       },
     });
 
     const prettifiedProduct = {
       ...product,
       images: product?.Image.map((item) => item.image),
-      hasReviewed: product?.Review.length === 1,
-      userReview: product?.Review[0] || null,
+      hasReviewed: product?.Review.find((item) => item.userId === userId)
+        ? true
+        : false,
+      userReview:
+        product?.Review.find((item) => item.userId === userId) || null,
+      averageRating:
+        product!.Review.reduce((prev, item) => prev + item.rating, 0) /
+        product?.Review.length!,
+
+      reviewCount: {
+        total: product?.Review.length,
+        5: product?.Review.filter((item) => item.rating === 5).length,
+        4: product?.Review.filter((item) => item.rating === 4).length,
+        3: product?.Review.filter((item) => item.rating === 3).length,
+        2: product?.Review.filter((item) => item.rating === 2).length,
+        1: product?.Review.filter((item) => item.rating === 1).length,
+      },
     };
 
     delete prettifiedProduct.Image;

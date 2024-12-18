@@ -42,6 +42,10 @@ const Product = () => {
     });
   }, []);
 
+  if (!data) return null;
+
+  console.log(data.reviewCount);
+
   return (
     <main className="dynamic-container min-h-screen pt-24">
       <section className="flex w-full gap-10" id="product-container">
@@ -66,12 +70,17 @@ const Product = () => {
           />
 
           {/* Price */}
-          <ProductRating rating={0} count={43} id={id || ""} />
+          <ProductRating
+            rating={data?.averageRating || 0}
+            count={data?.reviewCount.total || 0}
+            id={id || ""}
+          />
         </div>
       </section>
       <section className="mt-24">
         <Reviews
-          rating={4.5}
+          reviewCount={data?.reviewCount}
+          rating={data?.averageRating || 0}
           id={"-2" + id}
           UserReview={
             <UserReview
