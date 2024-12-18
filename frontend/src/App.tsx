@@ -8,12 +8,7 @@ import Product from "./pages/product/Product";
 import Navbar from "./components/shared/Navbar";
 import ProtectedComponent from "./components/routing/ProtectedComponent";
 import Footer from "./components/shared/Footer";
-
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
 import AuthProvider from "./providers/AuthProvider";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const App = () => {
   return (

@@ -4,17 +4,9 @@ interface Props {
   rating: number;
   id: string | number;
   size?: "xs" | "sm" | "md" | "lg";
-  disabled?: boolean;
-  onChange?: (selected: number) => void;
 }
 
-const Rating = ({
-  rating,
-  id,
-  size = "sm",
-  disabled = true,
-  onChange,
-}: Props) => {
+const RatingInput = ({ rating, id, size = "sm" }: Props) => {
   return (
     <div
       className={clsx("rating rating-hidden", {
@@ -32,8 +24,7 @@ const Rating = ({
             name={`rating-${id}`}
             key={index}
             className="mask mask-star first:rating-hidden"
-            disabled={disabled}
-            onChange={() => onChange && onChange(index)}
+            disabled
             defaultChecked={Math.trunc(rating) === index}
           />
         ))}
@@ -41,4 +32,4 @@ const Rating = ({
   );
 };
 
-export default Rating;
+export default RatingInput;
