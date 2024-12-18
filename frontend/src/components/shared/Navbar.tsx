@@ -1,4 +1,7 @@
+import { useAuth } from "../../stores/useAuthStore";
+
 const Navbar = () => {
+  const clearToken = useAuth((state) => state.clearToken);
   return (
     <div className="navbar fixed left-0 top-0 z-10 bg-primary">
       <div className="navbar-start">
@@ -23,13 +26,9 @@ const Navbar = () => {
             className="menu dropdown-content menu-lg z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
           >
             <li>
-              <a>Homepage</a>
-            </li>
-            <li>
-              <a>Portfolio</a>
-            </li>
-            <li>
-              <a>About</a>
+              <a onClick={clearToken} className="text-error">
+                Logout
+              </a>
             </li>
           </ul>
         </div>

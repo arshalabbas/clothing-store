@@ -17,6 +17,7 @@ import AdminJSExpress from "@adminjs/express";
 import { Database, Resource } from "@adminjs/prisma";
 
 import adminJsOptions from "./config/adminjs";
+import { verifyJwt } from "./middlewares/verifyJwt";
 
 dotenv.config();
 
@@ -39,8 +40,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/user", userRouter);
-app.use("/category", categoryRouter);
-app.use("/products", productRouter);
+app.use("/category", verifyJwt, categoryRouter);
+app.use("/products", verifyJwt, productRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running!");

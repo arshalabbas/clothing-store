@@ -34,7 +34,7 @@ const createUser = async (data: User) => {
     const token = generateJwtToken({ userId: result.id });
 
     return { authenticated: true, message: "User authenticated", token };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error creating user", error.message);
   }
 };
@@ -70,7 +70,7 @@ const signInUser = async ({
     const token = generateJwtToken({ userId: user.id });
 
     return { authenticated: true, message: "User Authenticated", token };
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error loggin user.", error.message);
   }
 };

@@ -9,28 +9,37 @@ import Navbar from "./components/shared/Navbar";
 import ProtectedComponent from "./components/routing/ProtectedComponent";
 import Footer from "./components/shared/Footer";
 
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import AuthProvider from "./providers/AuthProvider";
+
+gsap.registerPlugin(ScrollTrigger);
+
 const App = () => {
   return (
     <BrowserRouter>
-      <ProtectedComponent>
-        <Navbar />
-      </ProtectedComponent>
-      <Routes>
-        {/* No Auth Only routes */}
-        <Route element={<NoAuthOnlyRoute />}>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Route>
+      <AuthProvider>
+        <ProtectedComponent>
+          <Navbar />
+        </ProtectedComponent>
 
-        {/* Auth Only routes  */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<Product />} />
-        </Route>
-      </Routes>
-      <ProtectedComponent>
-        <Footer />
-      </ProtectedComponent>
+        <Routes>
+          {/* No Auth Only routes */}
+          <Route element={<NoAuthOnlyRoute />}>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Route>
+
+          {/* Auth Only routes  */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<Product />} />
+          </Route>
+        </Routes>
+        <ProtectedComponent>
+          <Footer />
+        </ProtectedComponent>
+      </AuthProvider>
     </BrowserRouter>
   );
 };
