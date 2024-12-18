@@ -12,6 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reviews from "./Reviews";
 import gsap from "gsap";
 import ReviewForm from "./ReviewForm";
+import UserReview from "./UserReview";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,9 +70,24 @@ const Product = () => {
         </div>
       </section>
       <section className="mt-24">
-        <Reviews rating={4.5} id={"-2" + id} />
+        <Reviews
+          rating={4.5}
+          id={"-2" + id}
+          UserReview={
+            <UserReview
+              hasReviewed={data?.hasReviewed}
+              userRating={data?.userReview}
+            />
+          }
+        />
       </section>
-      <ReviewForm image={data?.images[0] || ""} title={data?.title || ""} />
+
+      {/* Modal */}
+      <ReviewForm
+        image={data?.images[0] || ""}
+        title={data?.title || ""}
+        productId={data?.id || ""}
+      />
       <Loading isLoading={isLoading} />
     </main>
   );

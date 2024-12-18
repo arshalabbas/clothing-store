@@ -18,6 +18,7 @@ import { Database, Resource } from "@adminjs/prisma";
 
 import adminJsOptions from "./config/adminjs";
 import { verifyJwt } from "./middlewares/verifyJwt";
+import { reviewsRouter } from "./routes/reviews.route";
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/user", userRouter);
 app.use("/category", verifyJwt, categoryRouter);
 app.use("/products", verifyJwt, productRouter);
+app.use("/reviews", verifyJwt, reviewsRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running!");

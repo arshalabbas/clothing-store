@@ -1,12 +1,13 @@
+import { ReactNode } from "react";
 import Rating from "../../components/ui/Rating";
-import UserReview from "./UserReview";
 
 interface Props {
   id: string;
   rating: number;
+  UserReview: ReactNode;
 }
 
-const Reviews = ({ rating, id }: Props) => {
+const Reviews = ({ rating, id, UserReview }: Props) => {
   return (
     <div className="min-h-screen">
       <h3 className="text-2xl font-bold text-primary">Reviews (40)</h3>
@@ -28,14 +29,7 @@ const Reviews = ({ rating, id }: Props) => {
             ))
             .reverse()}
         </div>
-        <div className="flex-1">
-          <UserReview
-            isUserReviewed={false}
-            userRating={3.2}
-            title="Worth buying"
-            description="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus explicabo provident deleniti quas recusandae unde autem aut, iste asperiores ratione."
-          />
-        </div>
+        <div className="flex-1">{UserReview}</div>
       </div>
     </div>
   );

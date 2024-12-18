@@ -30,13 +30,13 @@ const getProducts = async () => {
     });
 
     return prettifiedProducts;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching products:", error.message);
     throw error;
   }
 };
 
-const getProductById = async (id: string) => {
+const getProductById = async (id: string, userId: string) => {
   try {
     const product = await prisma.product.findFirst({
       where: { id },
@@ -56,19 +56,27 @@ const getProductById = async (id: string) => {
             order: "asc",
           },
         },
+        Review: {
+          where: {
+            userId,
+          },
+        },
       },
     });
 
     const prettifiedProduct = {
       ...product,
       images: product?.Image.map((item) => item.image),
+      hasReviewed: product?.Review.length === 1,
+      userReview: product?.Review[0] || null,
     };
 
     delete prettifiedProduct.Image;
     delete prettifiedProduct.categoryId;
+    delete prettifiedProduct.Review;
 
     return prettifiedProduct;
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error fetching product by ID:", error.message);
     throw error;
   }

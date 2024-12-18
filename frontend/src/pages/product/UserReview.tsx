@@ -1,34 +1,37 @@
 import Rating from "../../components/ui/Rating";
 import { reviewFormTrigger } from "../../lib/utils";
+import { Review } from "../../types";
+import { FaRegEdit } from "react-icons/fa";
 
 interface Props {
-  isUserReviewed: boolean;
-  userRating: number;
-  title: string;
-  description: string;
+  hasReviewed?: boolean;
+  userRating?: Review | null;
 }
 
-const UserReview = ({
-  isUserReviewed,
-  userRating,
-  title,
-  description,
-}: Props) => {
+const UserReview = ({ hasReviewed = false, userRating }: Props) => {
   return (
     <div>
       <div>
-        {isUserReviewed ? (
+        {hasReviewed && userRating ? (
           <div>
             <div className="text-lg font-semibold text-primary">
               Your Review
             </div>
             <div className="mt-3 flex items-center gap-4">
-              <Rating rating={userRating} id={"user-rating"} size="md" />
+              <Rating rating={userRating.rating} id={"user-rating"} size="md" />
               <span className="text-lg font-semibold text-primary">
-                {title}
+                {userRating.shortTitle}
               </span>
             </div>
-            <div className="mt-2">{description}</div>
+            <div className="mt-2">{userRating.review}</div>
+            <div className="mt-5">
+              <button
+                className="btn btn-warning btn-sm"
+                onClick={reviewFormTrigger}
+              >
+                <FaRegEdit /> Edit your Review
+              </button>
+            </div>
           </div>
         ) : (
           <div className="flex w-full justify-end">
@@ -38,6 +41,7 @@ const UserReview = ({
           </div>
         )}
       </div>
+      <div className="divider" />
       <div>
         <div className="text-lg font-semibold text-primary">
           Look what others saying.

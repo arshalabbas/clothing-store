@@ -5,13 +5,16 @@ import { closeReviewForm, imageURL } from "../../lib/utils";
 import { Controller, useForm } from "react-hook-form";
 import { reviewSchema, ReviewSchema } from "../../lib/schemas/review.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { postReview } from "../../lib/api/review.api";
 
 interface Props {
   image: string;
   title: string;
+  productId: string;
 }
 
-const ReviewForm = ({ image, title }: Props) => {
+const ReviewForm = ({ image, title, productId }: Props) => {
   const {
     control,
     register,
@@ -26,9 +29,19 @@ const ReviewForm = ({ image, title }: Props) => {
     resolver: zodResolver(reviewSchema),
   });
 
+  const postReviewMutation = useMutation({
+    mutationFn: postReview,
+  });
+
   const onSubmit = (values: ReviewSchema) => {
-    // TODO: Post and Update Review
-    console.log(values);
+    postReviewMutation.mutate(
+      { productId, ...values },
+      {
+        onSuccess: () => {
+          closeReviewForm();
+        },
+      },
+    );
   };
 
   return (
@@ -95,6 +108,9 @@ const ReviewForm = ({ image, title }: Props) => {
               </button>
 
               <button type="submit" className="btn btn-primary">
+                {postReviewMutation.isPending && (
+                  <span className="loading loading-spinner" />
+                )}
                 Post Review
               </button>
             </div>

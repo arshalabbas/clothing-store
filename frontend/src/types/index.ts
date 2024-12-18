@@ -22,7 +22,15 @@ export interface ProductFever {
   category: string;
 }
 
+export interface Review {
+  rating: number;
+  shortTitle: string;
+  review: string;
+}
+
 export interface Product extends Omit<ProductFever, "category"> {
   category: Category;
   description: string;
+  hasReviewed: boolean;
+  userReview: Review | null;
 }
