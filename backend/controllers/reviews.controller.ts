@@ -48,4 +48,45 @@ const getUserReview = async (req: Request, res: Response) => {
   res.status(200).json(result.review);
 };
 
-export const reviewsController = { newReview, getUserReview };
+const updateUserReview = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const productId = req.params.productId;
+
+  if (!userId || !productId)
+    return res
+      .status(400)
+      .json({ done: false, message: "User ID or Product ID is missing." });
+
+  const { rating, shortTitle, review } = req.body;
+
+  const result = await reviewsService.updateUserReview(userId, productId, {
+    userId,
+    productId,
+    shortTitle,
+    review,
+    rating,
+  });
+
+  res.status(200).json(result.review);
+};
+
+const deleteUserReview = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const productId = req.params.productId;
+
+  if (!userId || !productId)
+    return res
+      .status(400)
+      .json({ done: false, message: "User ID or Product ID is missing." });
+
+  const result = await reviewsService.deleteUserReview(userId, productId);
+
+  res.status(200).json(result);
+};
+
+export const reviewsController = {
+  newReview,
+  getUserReview,
+  updateUserReview,
+  deleteUserReview,
+};

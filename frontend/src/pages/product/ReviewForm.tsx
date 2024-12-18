@@ -1,12 +1,16 @@
 import TextArea from "../../components/form/TextArea";
 import TextInput from "../../components/form/TextInput";
 import Rating from "../../components/ui/Rating";
-import { closeReviewForm, imageURL } from "../../lib/utils";
+import { closeModal, imageURL } from "../../lib/utils";
 import { Controller, useForm } from "react-hook-form";
 import { reviewSchema, ReviewSchema } from "../../lib/schemas/review.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getUserReview, postReview } from "../../lib/api/review.api";
+import {
+  getUserReview,
+  postReview,
+  updateReview,
+} from "../../lib/api/review.api";
 import Loading from "../../components/misc/Loading";
 import { useEffect } from "react";
 
@@ -51,21 +55,29 @@ const ReviewForm = ({
     mutationFn: postReview,
   });
 
+  const updateReviewMutation = useMutation({
+    mutationFn: updateReview,
+  });
+
   const onSubmit = (values: ReviewSchema) => {
-    postReviewMutation.mutate(
-      { productId, ...values },
-      {
-        onSuccess: () => {
-          closeReviewForm(productId);
-          queryClient.invalidateQueries({
-            queryKey: ["reviews"],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["products"],
-          });
-        },
+    const variables = { productId, ...values };
+    const options = {
+      onSuccess: () => {
+        closeModal(`${productId}-open-form`);
+        queryClient.invalidateQueries({
+          queryKey: ["reviews"],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["products"],
+        });
       },
-    );
+    };
+
+    if (hasReviewed) {
+      updateReviewMutation.mutate(variables, options);
+    } else {
+      postReviewMutation.mutate(variables, options);
+    }
   };
 
   useEffect(() => {
@@ -78,7 +90,7 @@ const ReviewForm = ({
   if (productId === null) return null;
 
   return (
-    <dialog id={`review-form-${productId}`} className="modal">
+    <dialog id={`${productId}-open-form`} className="modal">
       <div className="modal-box w-11/12 max-w-5xl">
         <div className="flex gap-5">
           {/* Product Overview */}
@@ -136,13 +148,20 @@ const ReviewForm = ({
               <button
                 className="btn btn-outline btn-error"
                 type="button"
-                onClick={() => closeReviewForm(productId)}
+                onClick={() => closeModal(`${productId}-open-form`)}
               >
                 Discard
               </button>
 
-              <button type="submit" className="btn btn-primary">
-                {postReviewMutation.isPending && (
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={
+                  postReviewMutation.isPending || updateReviewMutation.isPending
+                }
+              >
+                {(postReviewMutation.isPending ||
+                  updateReviewMutation.isPending) && (
                   <span className="loading loading-spinner" />
                 )}
                 {hasReviewed ? "Update" : "Post"} Review

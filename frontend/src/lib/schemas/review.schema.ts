@@ -10,7 +10,7 @@ export const reviewSchema = z.object({
   shortTitle: z
     .string()
     .min(3, "Atleast 3 characters required.")
-    .max(15, "Title can not be more than 15 characters."),
+    .max(30, "Title can not be more than 30 characters."),
   review: z
     .string()
     .min(3, "Atleast 3 characters required.")

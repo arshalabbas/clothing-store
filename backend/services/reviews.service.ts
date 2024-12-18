@@ -34,4 +34,40 @@ const getUserReview = async (userId: string, productId: string) => {
   }
 };
 
-export const reviewsService = { newReview, getUserReview };
+const updateUserReview = async (
+  userId: string,
+  productId: string,
+  data: Omit<Review, "id" | "createdAt">
+) => {
+  try {
+    const review = await prisma.review.update({
+      where: {
+        productId_userId: {
+          userId,
+          productId,
+        },
+      },
+      data,
+    });
+
+    return { done: true, review };
+  } catch (error: any) {
+    console.error("Error updating user review:", error.message);
+    throw error;
+  }
+};
+
+const deleteUserReview = async (userId: string, productId: string) => {
+  const review = await prisma.review.delete({
+    where: { productId_userId: { userId, productId } },
+  });
+
+  return { done: true, review };
+};
+
+export const reviewsService = {
+  newReview,
+  getUserReview,
+  updateUserReview,
+  deleteUserReview,
+};

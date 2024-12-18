@@ -5,6 +5,8 @@ const router = Router();
 
 router
   .post("/:productId/new", reviewsController.newReview)
-  .get("/:productId/user-review", reviewsController.getUserReview);
+  .get("/:productId/user-review", reviewsController.getUserReview)
+  .put("/:productId/user-review", reviewsController.updateUserReview)
+  .delete("/:productId/user-review", reviewsController.deleteUserReview);
 
 export const reviewsRouter = router;
