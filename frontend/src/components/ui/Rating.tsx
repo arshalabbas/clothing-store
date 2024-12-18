@@ -34,6 +34,7 @@ const Rating = ({
             className="mask mask-star first:rating-hidden"
             disabled={disabled}
             onChange={() => onChange && onChange(index)}
+            checked={Math.trunc(rating) === index}
             defaultChecked={Math.trunc(rating) === index}
           />
         ))}

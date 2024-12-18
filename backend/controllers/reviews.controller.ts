@@ -34,4 +34,18 @@ const newReview = async (
   res.status(200).json(result);
 };
 
-export const reviewsController = { newReview };
+const getUserReview = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const productId = req.params.productId;
+
+  if (!userId || !productId)
+    return res
+      .status(400)
+      .json({ done: false, message: "User ID or Product ID is missing." });
+
+  const result = await reviewsService.getUserReview(userId, productId);
+
+  res.status(200).json(result.review);
+};
+
+export const reviewsController = { newReview, getUserReview };

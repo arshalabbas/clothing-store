@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Product = () => {
   const { id } = useParams<{ id: string }>();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["products", id],
     queryFn: () => getProductById(id!),
     enabled: id !== undefined,
@@ -77,6 +77,7 @@ const Product = () => {
             <UserReview
               hasReviewed={data?.hasReviewed}
               userRating={data?.userReview}
+              productId={data?.id || ""}
             />
           }
         />
@@ -87,6 +88,8 @@ const Product = () => {
         image={data?.images[0] || ""}
         title={data?.title || ""}
         productId={data?.id || ""}
+        hasReviewed={data?.hasReviewed}
+        isLoaded={isSuccess}
       />
       <Loading isLoading={isLoading} />
     </main>

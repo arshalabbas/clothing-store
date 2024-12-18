@@ -4,11 +4,12 @@ import { Review } from "../../types";
 import { FaRegEdit } from "react-icons/fa";
 
 interface Props {
+  productId: string;
   hasReviewed?: boolean;
   userRating?: Review | null;
 }
 
-const UserReview = ({ hasReviewed = false, userRating }: Props) => {
+const UserReview = ({ productId, hasReviewed = false, userRating }: Props) => {
   return (
     <div>
       <div>
@@ -27,7 +28,7 @@ const UserReview = ({ hasReviewed = false, userRating }: Props) => {
             <div className="mt-5">
               <button
                 className="btn btn-warning btn-sm"
-                onClick={reviewFormTrigger}
+                onClick={() => reviewFormTrigger(productId)}
               >
                 <FaRegEdit /> Edit your Review
               </button>
@@ -35,7 +36,10 @@ const UserReview = ({ hasReviewed = false, userRating }: Props) => {
           </div>
         ) : (
           <div className="flex w-full justify-end">
-            <button className="btn btn-primary" onClick={reviewFormTrigger}>
+            <button
+              className="btn btn-primary"
+              onClick={() => reviewFormTrigger(productId)}
+            >
               Post your review
             </button>
           </div>

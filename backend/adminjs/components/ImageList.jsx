@@ -7,8 +7,6 @@ const ImageList = (props) => {
 
   if (!imageUrl) return null;
 
-  console.log(imageUrl);
-
   return (
     <Box>
       <img
