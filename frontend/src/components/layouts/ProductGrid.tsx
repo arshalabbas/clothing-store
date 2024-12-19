@@ -19,7 +19,7 @@ const ProductGrid = ({
       </div>
     );
   return (
-    <div className="grid gap-5 max-sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-5 md:grid-cols-3 lg:grid-cols-4">
       {data.map((item) => (
         <ProductCard key={item.id} {...item} rating={item.averageRating || 0} />
       ))}

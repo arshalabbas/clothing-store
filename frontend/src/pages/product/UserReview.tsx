@@ -42,7 +42,11 @@ const UserReview = ({ productId, hasReviewed = false, userRating }: Props) => {
               Your Review
             </div>
             <div className="mt-3 flex items-center gap-4">
-              <Rating rating={userRating.rating} id={"user-rating"} size="md" />
+              <Rating
+                rating={userRating.rating}
+                id={`user-rating-${productId}`}
+                size="md"
+              />
               <span className="text-lg font-semibold text-primary">
                 {userRating.shortTitle}
               </span>
@@ -53,14 +57,14 @@ const UserReview = ({ productId, hasReviewed = false, userRating }: Props) => {
                 className="btn btn-warning btn-sm"
                 onClick={() => openModal(`${productId}-open-form`)}
               >
-                <FaRegEdit /> Edit your Review
+                <FaRegEdit /> Edit
               </button>
               <button
                 className="btn btn-error btn-sm"
                 onClick={() => openModal(`${productId}-delete-review`)}
               >
                 <FaRegTrashAlt />
-                Delete your Review
+                Delete
               </button>
             </div>
           </div>

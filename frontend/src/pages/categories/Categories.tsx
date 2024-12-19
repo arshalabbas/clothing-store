@@ -20,7 +20,7 @@ const Categories = () => {
         <h4 className="flex-1 text-2xl font-semibold">Categories</h4>
       </div>
       <div className="divider" />
-      <div className="my-5 grid grid-cols-4 gap-4">
+      <div className="my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {data?.map((item) => <CategoryCard {...item} key={item.id} />)}
       </div>
       <Loading isLoading={isLoading} />

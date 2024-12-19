@@ -13,7 +13,7 @@ const FeaturedCategories = () => {
   return (
     <section className="dynamic-container py-10">
       <h2 className="text-2xl font-bold text-primary">Featured Categories</h2>
-      <div className="my-5 grid grid-cols-4 gap-4">
+      <div className="my-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {data?.map((item) => <CategoryCard {...item} key={item.id} />)}
       </div>
       <div className="flex justify-end">

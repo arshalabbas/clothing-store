@@ -91,8 +91,8 @@ const ReviewForm = ({
 
   return (
     <dialog id={`${productId}-open-form`} className="modal">
-      <div className="modal-box w-11/12 max-w-5xl">
-        <div className="flex gap-5">
+      <div className="modal-box w-full max-w-5xl md:w-11/12">
+        <div className="flex flex-col gap-5 md:flex-row">
           {/* Product Overview */}
           <div>
             <div className="flex w-[200px] flex-col gap-3 p-2">

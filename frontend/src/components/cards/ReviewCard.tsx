@@ -13,7 +13,7 @@ const ReviewCard = ({ name, shortTitle, review, rating, createdAt }: Props) => {
   return (
     <div className="w-full bg-base-200/50 p-5">
       <div className="flex items-center gap-4">
-        <Rating rating={rating} id={"user-rating"} size="sm" />
+        <Rating rating={rating} id={`user-rating-${name}`} size="sm" />
         <span className="font-semibold text-primary">{shortTitle}</span>
       </div>
       <div className="mt-2">{review}</div>
