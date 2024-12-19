@@ -1,5 +1,16 @@
 import prisma from "../config/prismaClient";
 
+const getAllCategories = async () => {
+  try {
+    const result = await prisma.category.findMany();
+
+    return result;
+  } catch (error: any) {
+    console.error("Error fetching all categories:", error.message);
+    throw error;
+  }
+};
+
 const getFeatured = async () => {
   try {
     const result = await prisma.category.findMany({
@@ -27,4 +38,4 @@ const getCategory = async (id: string) => {
   }
 };
 
-export const categoryService = { getFeatured, getCategory };
+export const categoryService = { getAllCategories, getFeatured, getCategory };

@@ -20,6 +20,7 @@ const adminJsOptions: AdminJSOptions = {
             props: {
               rows: 6,
             },
+            isVisible: { list: false },
           },
         },
       },

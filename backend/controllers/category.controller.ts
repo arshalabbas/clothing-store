@@ -1,6 +1,12 @@
 import { Request, Response } from "express";
 import { categoryService } from "../services/category.service";
 
+const getAllCategories = async (req: Request, res: Response) => {
+  const result = await categoryService.getAllCategories();
+
+  res.status(200).json(result);
+};
+
 const getFeatured = async (req: Request, res: Response) => {
   const result = await categoryService.getFeatured();
 
@@ -19,4 +25,8 @@ const getCategory = async (req: Request, res: Response): Promise<void> => {
   res.status(200).json(result.category);
 };
 
-export const categoryController = { getFeatured, getCategory };
+export const categoryController = {
+  getAllCategories,
+  getFeatured,
+  getCategory,
+};
