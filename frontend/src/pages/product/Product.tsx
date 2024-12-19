@@ -7,14 +7,9 @@ import ProductImages from "./ProductImages";
 import Sizes from "./Sizes";
 import PriceCard from "./PriceCard";
 import ProductRating from "./ProductRating";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reviews from "./Reviews";
-import gsap from "gsap";
 import ReviewForm from "./ReviewForm";
 import UserReview from "./UserReview";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const Product = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,19 +22,6 @@ const Product = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  useGSAP(() => {
-    // TODO: Hard coded things
-    ScrollTrigger.create({
-      trigger: "#product-container",
-      start: "top 100px",
-      end: "bottom 600x",
-      pin: "#product-left",
-      pinSpacing: true,
-      markers: false,
-      scrub: true,
-    });
   }, []);
 
   if (!data) return null;

@@ -1,9 +1,27 @@
 import { useState } from "react";
 import { imageURL } from "../../lib/utils";
 import clsx from "clsx";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import gsap from "gsap";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const ProductImages = ({ images }: { images: string[] }) => {
   const [imageIndex, setImageIndex] = useState(0);
+
+  useGSAP(() => {
+    // TODO: Hard coded things
+    ScrollTrigger.create({
+      trigger: "#product-container",
+      start: "top 100px",
+      end: "bottom 600x",
+      pin: "#product-left",
+      pinSpacing: true,
+      markers: true,
+      scrub: true,
+    });
+  }, []);
 
   return (
     <div className="flex h-[500px] w-1/2 gap-5" id="product-left">

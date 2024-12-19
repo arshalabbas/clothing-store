@@ -3,6 +3,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import * as url from "url";
+import Connect from "connect-pg-simple";
+import session from "express-session";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -50,8 +52,44 @@ app.get("/", (req, res) => {
 });
 
 // AdminJS Configurations
+const DEFAULT_ADMIN = {
+  email: "admin@mail.com",
+  password: "password",
+};
+
+const authenticate = async (email: string, password: string) => {
+  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
+    return Promise.resolve(DEFAULT_ADMIN);
+  }
+  return null;
+};
+
 const admin = new AdminJS(adminJsOptions);
-const adminRouter = AdminJSExpress.buildRouter(admin);
+const ConnectSession = Connect(session);
+const sessionStore = new ConnectSession({
+  conObject: {
+    connectionString: process.env.DATABASE_URL,
+  },
+  tableName: "session",
+  createTableIfMissing: true,
+});
+
+const adminRouter = AdminJSExpress.buildAuthenticatedRouter(
+  admin,
+  {
+    authenticate,
+    cookieName: "adminjs",
+    cookiePassword: "sessionsecret",
+  },
+  null,
+  {
+    store: sessionStore,
+    resave: true,
+    saveUninitialized: true,
+    secret: "sessionsecret",
+    name: "adminjs",
+  }
+);
 app.use(admin.options.rootPath, adminRouter);
 
 app.listen(PORT, () => {
