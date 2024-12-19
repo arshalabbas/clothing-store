@@ -32,7 +32,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <div
             className={clsx(
-              "mt-3 aspect-square h-32 cursor-pointer overflow-hidden rounded bg-base-200 transition first:mt-0 hover:opacity-100",
+              "inline-block aspect-square h-32 w-auto cursor-pointer overflow-hidden rounded bg-base-200 transition first:mt-0 hover:opacity-100 lg:mt-3 lg:h-auto",
               {
                 "opacity-60": index !== imageIndex,
               },
