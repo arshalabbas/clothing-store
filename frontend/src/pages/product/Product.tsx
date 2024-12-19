@@ -28,7 +28,10 @@ const Product = () => {
 
   return (
     <main className="dynamic-container min-h-screen pt-24">
-      <section className="flex w-full gap-10" id="product-container">
+      <section
+        className="flex w-full flex-col gap-10 lg:flex-row"
+        id="product-container"
+      >
         {/* Images */}
         <ProductImages images={data?.images || []} />
         {/* Detailed */}
@@ -53,7 +56,7 @@ const Product = () => {
           <ProductRating
             rating={data?.averageRating || 0}
             count={data?.reviewCount.total || 0}
-            id={id || ""}
+            id={id + "-product-rating"}
           />
         </div>
       </section>

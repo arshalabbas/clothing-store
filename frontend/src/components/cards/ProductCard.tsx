@@ -41,10 +41,12 @@ const ProductCard = ({
           />
         </div>
         <div className="mt-2">
-          <span className="font-medium text-primary/50">{category}</span>
+          <span className="font-medium text-primary/50 max-sm:text-sm">
+            {category}
+          </span>
         </div>
         <div className="flex-1">
-          <span className="text-lg font-semibold text-primary">{title}</span>
+          <span className="font-semibold text-primary lg:text-lg">{title}</span>
         </div>
         <div className="flex w-full items-center justify-between gap-2">
           <div className="flex flex-col">
@@ -57,7 +59,7 @@ const ProductCard = ({
           </div>
           <div className="flex flex-col items-end gap-1">
             <Rating rating={rating} id={id} />
-            <span className="font-medium">{rating} / 5</span>
+            <span className="font-medium">{rating.toFixed(1)} / 5.0</span>
           </div>
         </div>
       </Link>

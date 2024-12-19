@@ -32,7 +32,7 @@ const Products = () => {
 
   return (
     <main className="dynamic-container pt-28">
-      <div className="flex items-end justify-between gap-10">
+      <div className="flex flex-col justify-between gap-10 lg:flex-row">
         {params.get("category") && (
           <h4 className="flex-1 text-2xl font-semibold text-primary/60">
             Products on <span className="text-primary">{category?.title}</span>{" "}

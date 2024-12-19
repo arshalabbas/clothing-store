@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { imageURL } from "../../lib/utils";
 import clsx from "clsx";
-import { useGSAP } from "@gsap/react";
+// import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import gsap from "gsap";
 
@@ -10,26 +10,29 @@ gsap.registerPlugin(ScrollTrigger);
 const ProductImages = ({ images }: { images: string[] }) => {
   const [imageIndex, setImageIndex] = useState(0);
 
-  useGSAP(() => {
-    // TODO: Hard coded things
-    ScrollTrigger.create({
-      trigger: "#product-container",
-      start: "top 100px",
-      end: "bottom 600x",
-      pin: "#product-left",
-      pinSpacing: true,
-      markers: true,
-      scrub: true,
-    });
-  }, []);
+  // useGSAP(() => {
+  //   // TODO: Hard coded things
+  //   ScrollTrigger.create({
+  //     trigger: "#product-container",
+  //     start: "top 100px",
+  //     end: "bottom 600x",
+  //     pin: "#product-left",
+  //     pinSpacing: true,
+  //     markers: false,
+  //     scrub: true,
+  //   });
+  // }, []);
 
   return (
-    <div className="flex h-[500px] w-1/2 gap-5" id="product-left">
-      <div className="scrollbar-none h-full w-32 overflow-y-auto">
+    <div
+      className="flex h-auto w-full flex-col-reverse gap-5 lg:h-[500px] lg:w-1/2 lg:flex-row"
+      id="product-left"
+    >
+      <div className="scrollbar-none h-32 w-full overflow-y-auto lg:h-full lg:w-32">
         {images.map((image, index) => (
           <div
             className={clsx(
-              "mt-3 aspect-square w-full cursor-pointer overflow-hidden rounded bg-base-200 transition first:mt-0 hover:opacity-100",
+              "mt-3 aspect-square h-32 cursor-pointer overflow-hidden rounded bg-base-200 transition first:mt-0 hover:opacity-100",
               {
                 "opacity-60": index !== imageIndex,
               },

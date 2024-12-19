@@ -23,12 +23,16 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
       <h3 className="text-2xl font-bold text-primary">
         Reviews ({reviewCount.total})
       </h3>
-      <div className="mt-5 flex gap-5">
+      <div className="mt-5 flex flex-col gap-5 lg:flex-row">
         {/* Reviews Details */}
         <div className="h-fit bg-base-200 p-5">
           <div className="flex gap-3">
             <span className="text-5xl font-black">{rating.toFixed(1)}</span>
-            <Rating rating={rating} id={"-2" + productId} size="lg" />
+            <Rating
+              rating={rating}
+              id={"total-rating-" + productId}
+              size="lg"
+            />
           </div>
           <div className="divider" />
           {Array(5)
