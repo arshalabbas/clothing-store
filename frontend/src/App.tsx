@@ -7,6 +7,7 @@ import NoAuthOnlyRoute from "./components/routing/NoAuthOnlyRoute";
 import Product from "./pages/product/Product";
 import AuthProvider from "./providers/AuthProvider";
 import Products from "./pages/products/Products";
+import Categories from "./pages/categories/Categories";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           {/* Auth Only routes  */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
+            <Route path="/categories" element={<Categories />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<Product />} />
           </Route>

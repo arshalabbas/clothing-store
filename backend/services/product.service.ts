@@ -1,12 +1,27 @@
 import { Prisma } from "@prisma/client";
 import prisma from "../config/prismaClient";
 
-const getProducts = async (queries?: { categoryId?: string }) => {
+const getProducts = async (queries?: {
+  categoryId?: string;
+  search?: string;
+}) => {
   const whereCaluse: Prisma.ProductWhereInput = {};
 
   if (queries) {
     if (queries.categoryId) whereCaluse.categoryId = queries.categoryId;
+    if (queries.search) {
+      whereCaluse.OR = [
+        { title: { contains: queries.search, mode: "insensitive" } },
+        { description: { contains: queries.search, mode: "insensitive" } },
+        {
+          category: {
+            title: { contains: queries.search, mode: "insensitive" },
+          },
+        },
+      ];
+    }
   }
+
   try {
     const products = await prisma.product.findMany({
       where: whereCaluse,

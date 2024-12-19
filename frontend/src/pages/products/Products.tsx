@@ -1,17 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { getAllProducts } from "../../lib/api/product.api";
-import Loading from "../../components/misc/Loading";
 import ProductGrid from "../../components/layouts/ProductGrid";
 import { useEffect } from "react";
 import { getCategory } from "../../lib/api/category.api";
+import SearchInput from "../../components/form/SearchInput";
+import { useDebounce } from "use-debounce";
 
 const Products = () => {
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
+  const [search] = useDebounce(params.get("search"), 400);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => getAllProducts({ category: params.get("category") }),
+    queryKey: ["products", search],
+    queryFn: () =>
+      getAllProducts({
+        category: params.get("category"),
+        search,
+      }),
   });
 
   const { data: category } = useQuery({
@@ -26,16 +32,25 @@ const Products = () => {
 
   return (
     <main className="dynamic-container pt-28">
-      {category && (
-        <h4 className="text-2xl font-semibold text-primary/60">
-          Products on <span className="text-primary">{category.title}</span>{" "}
-        </h4>
-      )}
+      <div className="flex items-end justify-between gap-10">
+        {category && (
+          <h4 className="flex-1 text-2xl font-semibold text-primary/60">
+            Products on <span className="text-primary">{category.title}</span>{" "}
+          </h4>
+        )}
+        <div className="flex-[2]">
+          <SearchInput
+            placeholder={`Search ${category?.title || "Products"}`}
+            onChange={(value) =>
+              setParams(`search=${value}`, { replace: true })
+            }
+          />
+        </div>
+      </div>
       <div className="divider" />
       <div>
-        <ProductGrid data={data || []} />
+        <ProductGrid isLoading={isLoading} data={data || []} />
       </div>
-      <Loading isLoading={isLoading} />
     </main>
   );
 };

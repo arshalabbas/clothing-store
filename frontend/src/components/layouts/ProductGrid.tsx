@@ -1,11 +1,21 @@
 import { ProductFever } from "../../types";
 import ProductCard from "../cards/ProductCard";
 
-const ProductGrid = ({ data }: { data: ProductFever[] }) => {
+const ProductGrid = ({
+  data,
+  isLoading,
+}: {
+  data: ProductFever[];
+  isLoading?: boolean;
+}) => {
   if (data.length <= 0)
     return (
-      <div className="flex h-60 w-full flex-1 items-center justify-center">
-        <p className="text-xl font-bold text-primary">No products found.</p>
+      <div className="flex h-96 w-full flex-1 items-center justify-center">
+        {isLoading ? (
+          <span className="loading loading-spinner loading-lg" />
+        ) : (
+          <p className="text-xl font-bold text-primary"> No products found.</p>
+        )}
       </div>
     );
   return (
