@@ -44,8 +44,6 @@ const Product = () => {
 
   if (!data) return null;
 
-  console.log(data.reviewCount);
-
   return (
     <main className="dynamic-container min-h-screen pt-24">
       <section className="flex w-full gap-10" id="product-container">

@@ -1,8 +1,15 @@
+import { Prisma } from "@prisma/client";
 import prisma from "../config/prismaClient";
 
-const getProducts = async () => {
+const getProducts = async (queries?: { categoryId?: string }) => {
+  const whereCaluse: Prisma.ProductWhereInput = {};
+
+  if (queries) {
+    if (queries.categoryId) whereCaluse.categoryId = queries.categoryId;
+  }
   try {
     const products = await prisma.product.findMany({
+      where: whereCaluse,
       include: {
         category: true,
         Image: {
@@ -22,9 +29,6 @@ const getProducts = async () => {
     });
 
     const prettifiedProducts = products.map((product) => {
-      console.log(
-        product.Review.reduce((prev, current) => prev + current.rating, 0)
-      );
       const newProduct = {
         id: product.id,
         title: product.title,

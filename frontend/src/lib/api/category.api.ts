@@ -13,3 +13,16 @@ export const getFeaturedCategories = () => {
       });
   });
 };
+
+export const getCategory = (id: string) => {
+  return new Promise<Category>((resolve, reject) => {
+    api
+      .get(`/category/${id}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => {
+        reject(error.response.data);
+      });
+  });
+};

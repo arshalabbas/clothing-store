@@ -5,19 +5,13 @@ import SignUp from "./pages/auth/SignUp";
 import ProtectedRoute from "./components/routing/ProtectedRoute";
 import NoAuthOnlyRoute from "./components/routing/NoAuthOnlyRoute";
 import Product from "./pages/product/Product";
-import Navbar from "./components/shared/Navbar";
-import ProtectedComponent from "./components/routing/ProtectedComponent";
-import Footer from "./components/shared/Footer";
 import AuthProvider from "./providers/AuthProvider";
+import Products from "./pages/products/Products";
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <ProtectedComponent>
-          <Navbar />
-        </ProtectedComponent>
-
         <Routes>
           {/* No Auth Only routes */}
           <Route element={<NoAuthOnlyRoute />}>
@@ -28,12 +22,10 @@ const App = () => {
           {/* Auth Only routes  */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
             <Route path="/product/:id" element={<Product />} />
           </Route>
         </Routes>
-        <ProtectedComponent>
-          <Footer />
-        </ProtectedComponent>
       </AuthProvider>
     </BrowserRouter>
   );

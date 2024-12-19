@@ -18,10 +18,6 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
     queryFn: () => getAllReviews(productId),
     enabled: productId !== undefined,
   });
-
-  if (data) {
-    console.log(data);
-  }
   return (
     <div className="min-h-screen">
       <h3 className="text-2xl font-bold text-primary">

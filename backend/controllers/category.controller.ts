@@ -7,4 +7,16 @@ const getFeatured = async (req: Request, res: Response) => {
   res.status(200).json(result);
 };
 
-export const categoryController = { getFeatured };
+const getCategory = async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const result = await categoryService.getCategory(id);
+
+  if (!result.done) {
+    res.status(404).json(result);
+    return;
+  }
+
+  res.status(200).json(result.category);
+};
+
+export const categoryController = { getFeatured, getCategory };

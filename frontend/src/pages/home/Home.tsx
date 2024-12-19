@@ -8,7 +8,7 @@ import Loading from "../../components/misc/Loading";
 const Home = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["products"],
-    queryFn: getAllProducts,
+    queryFn: () => getAllProducts(),
   });
   return (
     <main className="pt-14">

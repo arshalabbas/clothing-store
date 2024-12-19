@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import { productService } from "../services/product.service";
 
 const getProducts = async (req: Request, res: Response) => {
-  const products = await productService.getProducts();
+  const { category } = req.query;
+  const queries: Record<string, any> = {};
+
+  if (category) queries.categoryId = category;
+  const products = await productService.getProducts(queries);
 
   res.status(200).json(products);
 };

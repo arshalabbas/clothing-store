@@ -57,10 +57,7 @@ const UserReview = ({ productId, hasReviewed = false, userRating }: Props) => {
               </button>
               <button
                 className="btn btn-error btn-sm"
-                onClick={() => {
-                  console.log("what is this?");
-                  openModal(`${productId}-delete-review`);
-                }}
+                onClick={() => openModal(`${productId}-delete-review`)}
               >
                 <FaRegTrashAlt />
                 Delete your Review
