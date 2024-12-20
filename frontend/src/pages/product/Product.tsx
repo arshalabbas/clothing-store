@@ -11,8 +11,10 @@ import Reviews from "./Reviews";
 import ReviewForm from "./ReviewForm";
 import UserReview from "./UserReview";
 import PinForm from "./PinForm";
+import { useCart } from "../../stores/useCartStore";
 
 const Product = () => {
+  const addToCart = useCart((state) => state.addItem);
   const { id } = useParams<{ id: string }>();
 
   const { data, isLoading, isSuccess } = useQuery({
@@ -50,8 +52,18 @@ const Product = () => {
           <Sizes sizes={data?.category.sizes || []} id={id || ""} />
           <PinForm />
           <PriceCard
+            productId={data.id}
             price={data?.price || ""}
             originalPrice={data?.originalPrice || ""}
+            onClickAddtoCart={() =>
+              addToCart({
+                id: data.id,
+                image: data.images[0],
+                price: data.price,
+                quantity: 1,
+                title: data.title,
+              })
+            }
           />
 
           {/* Price */}

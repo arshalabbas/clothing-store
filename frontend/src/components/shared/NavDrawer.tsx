@@ -47,7 +47,7 @@ const NavDrawer = () => {
             Categories
           </li>
           {data?.map((item) => (
-            <li>
+            <li key={item.id}>
               <a href={`/products?category=${item.id}`}>{item.title}</a>
             </li>
           ))}

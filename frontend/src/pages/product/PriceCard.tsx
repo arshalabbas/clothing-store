@@ -1,10 +1,22 @@
+import { AiOutlineShoppingCart } from "react-icons/ai";
+import { useCart } from "../../stores/useCartStore";
+
 const PriceCard = ({
+  productId,
   originalPrice,
   price,
+  onClickAddtoCart,
 }: {
+  productId: string;
   originalPrice: string;
   price: string;
+  onClickAddtoCart: () => void;
 }) => {
+  const productInCart =
+    useCart((state) => state.items).findIndex(
+      (item) => item.id === productId,
+    ) !== -1;
+
   return (
     <div className="mt-5 w-full bg-base-200 p-5">
       <div className="flex items-end gap-2">
@@ -18,9 +30,20 @@ const PriceCard = ({
         <span>(Also includes all applicable duties)</span>
       </div>
       <div className="mt-5">
-        <button className="btn btn-primary btn-lg btn-block">
-          Add to Cart
-        </button>
+        {productInCart ? (
+          <button className="btn btn-outline btn-lg btn-block bg-white">
+            <AiOutlineShoppingCart className="text-lg" />
+            Go to Cart
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary btn-lg btn-block"
+            onClick={onClickAddtoCart}
+          >
+            <AiOutlineShoppingCart className="text-lg" />
+            Add to Cart
+          </button>
+        )}
       </div>
     </div>
   );

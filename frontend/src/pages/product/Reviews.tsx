@@ -23,7 +23,7 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
 
   useGSAP(() => {
     // TODO: Hard coded things
-    if (window.innerWidth < 800) return;
+    if (window.innerWidth < 800 || !data) return;
     ScrollTrigger.create({
       trigger: "#reviews-container",
       start: "top 100px",
@@ -33,7 +33,7 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
       markers: false,
       scrub: true,
     });
-  }, []);
+  }, [data]);
   return (
     <div className="min-h-screen">
       <h3 className="text-2xl font-bold text-primary">
@@ -65,8 +65,9 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
           <div className="w-full">{UserReview}</div>
           {data ? (
             <div className="mt-8 flex flex-col gap-5">
-              {data?.map((item) => (
+              {data?.map((item, i) => (
                 <ReviewCard
+                  key={i}
                   {...item}
                   name={`${item.user.firstName} ${item.user.lastName}`}
                 />
