@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { imageURL } from "../../lib/utils";
 import { ProductFever } from "../../types";
 import { Link } from "react-router";
-import { IoAdd } from "react-icons/io5";
+// import { IoAdd } from "react-icons/io5";
 import Rating from "../ui/Rating";
 
 const ProductCard = ({
@@ -51,10 +51,10 @@ const ProductCard = ({
         <div className="flex w-full items-center justify-between gap-2">
           <div className="flex flex-col">
             <span className="text-xl font-semibold text-primary/90">
-              {price}$
+              {price}₹
             </span>
             <span className="text-primary/50 line-through">
-              {originalPrice}$
+              {originalPrice}₹
             </span>
           </div>
           <div className="flex flex-col items-end gap-1">
@@ -63,12 +63,12 @@ const ProductCard = ({
           </div>
         </div>
       </Link>
-      <div>
+      {/* <div>
         <button className="btn btn-outline btn-primary w-full">
           <IoAdd className="text-xl" />
           Add to Cart
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

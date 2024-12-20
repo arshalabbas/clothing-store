@@ -4,6 +4,8 @@ import { Product } from "../../types";
 import { useQuery } from "@tanstack/react-query";
 import { getAllReviews } from "../../lib/api/review.api";
 import ReviewCard from "../../components/cards/ReviewCard";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 
 interface Props {
   productId: string;
@@ -18,6 +20,20 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
     queryFn: () => getAllReviews(productId),
     enabled: productId !== undefined,
   });
+
+  useGSAP(() => {
+    // TODO: Hard coded things
+    if (window.innerWidth < 800) return;
+    ScrollTrigger.create({
+      trigger: "#reviews-container",
+      start: "top 100px",
+      end: "bottom 600x",
+      pin: "#review-info",
+      pinSpacing: true,
+      markers: false,
+      scrub: true,
+    });
+  }, []);
   return (
     <div className="min-h-screen">
       <h3 className="text-2xl font-bold text-primary">
@@ -25,7 +41,7 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
       </h3>
       <div className="mt-5 flex flex-col gap-5 lg:flex-row">
         {/* Reviews Details */}
-        <div className="h-fit bg-base-200 p-5">
+        <div className="h-fit bg-base-200 p-5" id="review-info">
           <div className="flex gap-3">
             <span className="text-5xl font-black">{rating.toFixed(1)}</span>
             <Rating
@@ -45,7 +61,7 @@ const Reviews = ({ rating, productId, UserReview, reviewCount }: Props) => {
             ))
             .reverse()}
         </div>
-        <div className="flex-1">
+        <div className="flex-1" id="reviews-container">
           <div className="w-full">{UserReview}</div>
           {data ? (
             <div className="mt-8 flex flex-col gap-5">

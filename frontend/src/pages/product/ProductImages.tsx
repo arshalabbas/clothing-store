@@ -12,7 +12,7 @@ const ProductImages = ({ images }: { images: string[] }) => {
 
   useGSAP(() => {
     // TODO: Hard coded things
-    if (window.innerWidth < 640) return;
+    if (window.innerWidth < 800) return;
     ScrollTrigger.create({
       trigger: "#product-container",
       start: "top 100px",

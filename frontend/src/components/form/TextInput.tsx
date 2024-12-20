@@ -1,18 +1,41 @@
-import { forwardRef } from "react";
+import { forwardRef, ReactNode } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   error?: string;
+  inputClassName?: string;
+  containerClassName?: string;
+  labelClassName?: string;
+  RightComponent?: ReactNode;
 }
 
 const TextInput = forwardRef<HTMLInputElement, Props>(
-  ({ label, error, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      containerClassName,
+      inputClassName,
+      labelClassName,
+      RightComponent,
+      ...props
+    },
+    ref,
+  ) => {
     return (
-      <label className="form-control min-w-full">
+      <label className={twMerge("form-control", containerClassName)}>
         <div className="label">
-          <span className="label-text">{label}</span>
+          <span className={twMerge("label-text", labelClassName)}>{label}</span>
         </div>
-        <input {...props} ref={ref} className="input input-bordered w-full" />
+        <div className="join flex">
+          <input
+            {...props}
+            ref={ref}
+            className={twMerge("input input-bordered w-full", inputClassName)}
+          />
+          {RightComponent}
+        </div>
 
         {error && (
           <div className="label">

@@ -10,6 +10,7 @@ import ProductRating from "./ProductRating";
 import Reviews from "./Reviews";
 import ReviewForm from "./ReviewForm";
 import UserReview from "./UserReview";
+import PinForm from "./PinForm";
 
 const Product = () => {
   const { id } = useParams<{ id: string }>();
@@ -47,6 +48,7 @@ const Product = () => {
             <p className="leading-[1.6] text-primary/80">{data?.description}</p>
           </div>
           <Sizes sizes={data?.category.sizes || []} id={id || ""} />
+          <PinForm />
           <PriceCard
             price={data?.price || ""}
             originalPrice={data?.originalPrice || ""}
