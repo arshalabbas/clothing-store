@@ -11,6 +11,7 @@
     <img src="https://img.shields.io/badge/Express.js-%23404d59.svg?logo=express&logoColor=%2361DAFB" alt="express" />
     <img src="https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white" alt="postgres" />
     <img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white" alt="prisma" />
+    <img src="https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white" alt="tailwindcss" />
     <img src="https://img.shields.io/badge/DaisyUI-5A0EF8?logo=daisyui&logoColor=fff" alt="daisyui" />
   </div>
 
@@ -26,6 +27,7 @@
 - Express.js
 - PostgreSQL
 - Prisma
+- Tailwind CSS
 - DaisyUI
 - Zod
 - Vite
