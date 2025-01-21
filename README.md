@@ -14,7 +14,7 @@
     <img src="https://img.shields.io/badge/DaisyUI-5A0EF8?logo=daisyui&logoColor=fff" alt="daisyui" />
   </div>
 
-  <h3 align="center">Amazon.com Clone</h3>
+  <h3 align="center">Clothing ECommerce</h3>
 </div>
 
 [View Demo](https://clone-amazoncom.netlify.app/)
@@ -46,8 +46,8 @@ Make sure you have the following installed on your machine:
 **Cloning the Repository**
 
 ```bash
-git clone https://github.com/arshalabbas/amazon-clone
-cd amazon-clone
+git clone https://github.com/arshalabbas/clothing-store.git
+cd clothing-store
 ```
 
 **Configuration**
