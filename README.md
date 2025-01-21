@@ -50,11 +50,6 @@ git clone https://github.com/arshalabbas/clothing-store.git
 cd clothing-store
 ```
 
-**Configuration**
-
-Rename both `example.env` files in `fronthend` and `backend` directories to `.env`
-and provide your values.
-
 **Installation**
 
 Install the project dependencies using npm:
@@ -73,6 +68,18 @@ cd ..
 cd backend
 pnpm install
 cd ..
+```
+
+**Configuration**
+
+Rename both `example.env` files in `fronthend` and `backend` directories to `.env`
+and provide your values.
+
+##### Prisma Migration
+
+```bash
+cd backend
+npx prisma migrate dev --name init
 ```
 
 **Running the Project**
