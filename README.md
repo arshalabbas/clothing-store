@@ -45,6 +45,8 @@ Make sure you have the following installed on your machine:
 - [pnpm](https://pnpm.io/)
 - [PostgreSQL](https://www.postgresql.org/)
 
+---
+
 **Cloning the Repository**
 
 ```bash
@@ -52,25 +54,35 @@ git clone https://github.com/arshalabbas/clothing-store.git
 cd clothing-store
 ```
 
+---
+
 **Installation**
 
 Install the project dependencies using npm:
 
 ```bash
-pnpm install
+pnpm install-all
+```
+
+(OR) In case the above step didn't work or you don't have `pnpm` installed in your machine.
+
+```bash
+npm install
 ```
 
 ```bash
 cd frontend
-pnpm install
+npm install
 cd ..
 ```
 
 ```bash
 cd backend
-pnpm install
+npm install
 cd ..
 ```
+
+---
 
 **Configuration**
 
@@ -92,6 +104,14 @@ Make sure you're at the root of the project.
 pnpm dev
 ```
 
+---
+
 Open [http://localhost:5173](http://localhost:5173) for the frontend application.
 
 Open [http://localhost:3000/admin](http://localhost:3000/admin) for admin dashboard.
+
+**Default credentials of Admin Dashboard**
+
+Email: `admin@mail.com`
+
+Passoword: `password`
