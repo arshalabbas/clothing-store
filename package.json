@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\""
+    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
+    "install-all": "pnpm install && pnpm install --prefix frontend && pnpm install --prefix backend"
   },
   "keywords": [],
   "author": "Arshal Abbas",
@@ -11,8 +12,5 @@
   "description": "",
   "devDependencies": {
     "concurrently": "^9.1.0"
-  },
-  "dependencies": {
-    "tailwind-merge": "^2.5.5"
   }
 }

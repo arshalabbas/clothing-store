@@ -5,6 +5,7 @@ import path from "path";
 import * as url from "url";
 import Connect from "connect-pg-simple";
 import session from "express-session";
+import fs from "fs";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -25,6 +26,21 @@ import { reviewsRouter } from "./routes/reviews.route";
 dotenv.config();
 
 const PORT = 3000;
+
+const publicDir = path.join(__dirname, "public");
+const uploadsDir = path.join(publicDir, "uploads");
+
+// Check if 'public' directory exists
+if (!fs.existsSync(publicDir)) {
+  fs.mkdirSync(publicDir);
+  console.log("Created public directory");
+}
+
+// Check if 'uploads' directory exists inside 'public'
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+  console.log("Created uploads directory inside public");
+}
 
 AdminJS.registerAdapter({ Database, Resource });
 
